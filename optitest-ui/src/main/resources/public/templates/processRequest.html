@@ -1,0 +1,81 @@
+</br>
+<div class="row">
+	<div class="col-md-12">
+		<form class="form" id="enqForm">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h6 class="panel-title">Service Request</h6>
+				</div>
+				<div class="panel-body">
+					<div class="form-group col-md-2">
+						<label for="codchn">Codchn</label> 
+						<select class="form-control" id="codchn" ng-model="serviceRequest.codchn"
+							ng-change="loadPropertyByCodchn(serviceRequest.codchn)">
+							<option ng-repeat="codchn in codchnList" value="{{codchn}}">{{codchn}}</option>
+						</select>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="description">Description</label> 
+						<input type="text" class="form-control" id="description" ng-model="serviceRequest.description"/>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="toStation">Property List</label>
+						<div ng-dropdown-multiselect="" checkboxes="true" options="propertyList" id="propertyList"  extra-settings="dropDownsettings"
+							selected-model="propertyListModel" closeOnSelect="true" closeOnDeselect="true" buttonDefaultText="Select Properties">
+						</div>
+					</div>
+
+					<div class="form-group col-md-2">
+						<label for="travelDate">Date</label>
+						<p class="input-group">
+							<input type="text" class="form-control" id="travelDate"
+								placeholder="Enter batch date" datepicker-popup="{{format}}"
+								ng-readonly="true" ng-model="serviceRequest.batchDate"
+								is-open="opened" min-date="minDate" max-date="maxDate"
+								datepicker-options="dateOptions" ng-required="true"
+								close-text="Close" /> <span class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									ng-click="open($event)">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</span>
+						</p>
+					</div>
+					<div class="form-group col-md-2">
+						</br>
+						<button type="submit" class="btn btn-primary"
+							ng-click="createProcessRequest(serviceRequest,propertyListModel)">Request</button>
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+		<div ng-show="show">
+			<p><b>Request created with following details:</b></p>
+			<table class="table table-striped table-hover">
+          			<thead>
+	            		<tr class="info">
+	              			<th class="col-md-1">Request ID</th>
+	              			<th class="col-md-3">Description</th>
+	              			<th class="col-md-1">Batch Date</th>
+	              			<th class="col-md-1">Codchn</th>
+	              			<th class="col-md-4">Property List</th>
+	              			<th class="col-md-2">Email</th>
+	            		</tr>
+          			</thead>
+          			<tbody>
+        				<tr ng-class="warning" >
+	              				<td class="col-md-1">{{responseString.requestId}}</td>
+	              				<td class="col-md-3">{{responseString.description}}</td>
+	              				<td class="col-md-1">{{responseString.batchDate | date:'dd/MM/yyyy'}}</td>
+	              				<td class="col-md-1">{{responseString.codchn}}</td>
+	              				<td class="col-md-4">{{responseString.selectedPropertyList}}</td>
+	              				<td class="col-md-2">{{responseString.email}}</td>
+            			</tr>
+        			</tbody>
+        </table>
+		</div>
+	</div>
+</div>
